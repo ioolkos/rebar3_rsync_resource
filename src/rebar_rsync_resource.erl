@@ -39,7 +39,7 @@ download(TmpDir, AppInfo, _ResourceState, RebarState) ->
 download_(Dir, {rsync, Remote}, _State) ->
     Out = os:cmd(io_lib:format("rsync ~s ~s ~s", [flags(), Remote, Dir])),
     io:format(Out),
-    {ok, Out}.
+    ok.
 
 %% Old
 needs_update(Dir, {MyTag, Path, _}) ->
