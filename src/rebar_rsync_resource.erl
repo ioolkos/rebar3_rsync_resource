@@ -33,8 +33,10 @@ download(TmpDir, {rsync, Remote}, RebarState) ->
     download_(TmpDir, {rsync, Remote}, RebarState).
   
 %% New
-download(TmpDir, _AppInfo = {rsync, Remote}, _ResourceState, RebarState) ->
-    download_(TmpDir, {rsync, Remote}, RebarState).
+download(TmpDir, AppInfo, _ResourceState, RebarState) ->
+    ok = filelib:ensure_dir(TmpDir),
+    Source = rebar_app_info:source(AppInfo),
+    download_(TmpDir, Source, RebarState).
   
 download_(Dir, {rsync, Remote}, _State) ->
     Out = os:cmd(io_lib:format("rsync ~s ~s ~s", [flags(), Remote, Dir])),
